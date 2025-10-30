@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug RCA Backend",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["ts-node", "src/index.ts"],
+      "skipFiles": ["<node_internals>/**"],
+      "env": {
+        "PORT": "4000"
+      }
+    }
+  ]
+}

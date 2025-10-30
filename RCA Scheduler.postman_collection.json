@@ -1,0 +1,145 @@
+{
+  "info": {
+    "name": "RCA Scheduler API",
+    "_postman_id": "0e5efc4d-234a-42a2-bf12-rca-scheduler",
+    "description": "Collection to test all RCA Scheduler API endpoints (modularized backend).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "✅ Verify Google Token",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"googleAccessToken\": \"{{GOOGLE_ACCESS_TOKEN}}\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/verifyGoogleToken",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "verifyGoogleToken"]
+        }
+      }
+    },
+    {
+      "name": "📄 Get RCA Info",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"devrevApiKey\": \"{{DEVREV_API_KEY}}\",\n  \"incidentId\": \"{{INCIDENT_ID}}\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/getRCAInfo",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "getRCAInfo"]
+        }
+      }
+    },
+    {
+      "name": "👥 Get Reviewer",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"ownerBU\": \"DevOps\",\n  \"reviewersMap\": {\n    \"DevOps\": \"reviewer-devops@company.com\",\n    \"Platform\": \"reviewer-platform@company.com\",\n    \"SRE\": \"reviewer-sre@company.com\"\n  }\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/getReviewer",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "getReviewer"]
+        }
+      }
+    },
+    {
+      "name": "📅 Get Reviewer Availability",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"googleAccessToken\": \"{{GOOGLE_ACCESS_TOKEN}}\",\n  \"reviewerEmail\": \"reviewer-devops@company.com\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/getReviewerAvailability",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "getReviewerAvailability"]
+        }
+      }
+    },
+    {
+      "name": "🔍 Find Available Slot",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"busySlots\": [],\n  \"duration\": 30\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/findAvailableSlot",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "findAvailableSlot"]
+        }
+      }
+    },
+    {
+      "name": "📆 Schedule Event",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"googleAccessToken\": \"{{GOOGLE_ACCESS_TOKEN}}\",\n  \"ownerEmail\": \"owner@company.com\",\n  \"authorEmail\": \"author@company.com\",\n  \"reviewerEmail\": \"reviewer@company.com\",\n  \"incidentId\": \"INC-12345\",\n  \"chosenSlot\": {\n    \"start\": \"2025-10-23T10:00:00+05:30\",\n    \"end\": \"2025-10-23T10:30:00+05:30\"\n  }\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/scheduleEvent",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "scheduleEvent"]
+        }
+      }
+    },
+    {
+      "name": "🧠 Schedule RCA (Full Flow)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"googleAccessToken\": \"{{GOOGLE_ACCESS_TOKEN}}\",\n  \"devrevApiKey\": \"{{DEVREV_API_KEY}}\",\n  \"incidentId\": \"{{INCIDENT_ID}}\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/scheduleRCA",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["api", "scheduleRCA"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    { "key": "GOOGLE_ACCESS_TOKEN", "value": "" },
+    { "key": "DEVREV_API_KEY", "value": "" },
+    { "key": "INCIDENT_ID", "value": "" }
+  ]
+}
