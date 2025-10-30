@@ -16,25 +16,8 @@ rca-scheduler-frontend/.env
 rca-scheduler-frontend/*.log
 
 # --- General ---
-# Environment / secrets
-# Env files
 .env
 *.env
-rca-scheduler-backend/.env
-rca-scheduler-frontend/.env
-
-# IDE / Editor / OS files
 .vscode/
 .DS_Store
 Thumbs.db
-
-# Archives / temp files
-*.rar
-*.zip
-*.tar
-*.gz
-
-# Logs
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
