@@ -17,8 +17,11 @@ rca-scheduler-frontend/*.log
 
 # --- General ---
 # Environment / secrets
+# Env files
 .env
 *.env
+rca-scheduler-backend/.env
+rca-scheduler-frontend/.env
 
 # IDE / Editor / OS files
 .vscode/
