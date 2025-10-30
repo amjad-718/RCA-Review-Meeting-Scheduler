@@ -1,0 +1,48 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+/* Header fixed at top */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #333;
+  color: white;
+  padding: 0.75rem 1rem; /* adjust as needed */
+  font-size: 1rem;       /* smaller than h1 default */
+  box-sizing: border-box;
+  z-index: 1000;
+  display: flex;
+  align-items: center;    /* vertically center text */
+  height: 3rem;           /* fixed height for consistent layout */
+}
+
+/* Footer fixed at bottom (keep previous nice size) */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #333;
+  color: white;
+  text-align: center;
+  padding: 1rem;          /* keep it nice like before */
+  box-sizing: border-box;
+  z-index: 1000;
+}
+
+/* Main content */
+main {
+  padding-top: 3rem;    /* same as header height */
+  padding-bottom: 4rem; /* same as footer height */
+  box-sizing: border-box;
+
+  /* flex for centering */
+  display: flex;
+  justify-content: center; /* horizontal center */
+  align-items: center;     /* vertical center */
+  min-height: calc(100vh - 3rem - 4rem); /* full viewport minus header/footer */
+}

@@ -1,0 +1,17 @@
+<div class="p-6">
+  <h2 class="text-xl font-semibold mb-4">Enter the DevRev ID to schedule the meeting</h2>
+
+  <input [(ngModel)]="incidentId" type = "text" placeholder="DevRev ID" class="border p-2 w-full mb-2" />
+  <input [(ngModel)]="rcaLink" type = "text" placeholder="RCA Link" class="border p-2 w-full mb-2" />
+
+  <button (click)="scheduleRCA()" class="bg-green-500 text-white px-4 py-2 rounded">
+    Schedule RCA
+  </button>
+
+  
+
+  <button type="button" (click)="logout()" class="bg-red-500 text-white px-3 py-1 rounded float-right">
+    Logout
+    </button>
+</div>
+<p class="mt-4" *ngIf="message">{{ message }}</p>
