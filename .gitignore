@@ -11,9 +11,7 @@ rca-scheduler-backend/debug.log
 rca-scheduler-frontend/node_modules/
 rca-scheduler-frontend/dist/
 rca-scheduler-frontend/.angular/cache/
-rca-scheduler-frontend/.vscode/
 rca-scheduler-frontend/.env
-rca-scheduler-frontend/*.log
 
 # --- General ---
 .env
