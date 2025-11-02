@@ -1,10 +1,16 @@
 import express from "express";
 import axios from "axios";
+import dotenv from "dotenv";
 
 const router = express.Router();
 
+dotenv.config();
+
 router.post("/getRCAInfo", async (req, res) => {
-  const { devrevApiKey, incidentId } = req.body;
+  const { incidentId } = req.body;
+
+  const devrevApiKey = process.env.DEVREV_API_KEY;
+
   if (!devrevApiKey || !incidentId)
     return res.status(400).json({ message: "devrevApiKey and incidentId are required" });
 
@@ -25,10 +31,12 @@ router.post("/getRCAInfo", async (req, res) => {
 
     const ownerEmail = incident.owned_by[0].email;
     const ownerName = incident.owned_by[0].full_name;
-    // const ownerBU = incident.custom_fields?.BU || incident.BU || incident.owner?.BU || null;
+    const rcaLink = incident.custom_fields.tnt__internal_rca_doc_link;
+    const rcaPriority = incident.custom_fields.tnt__priority;
 
-    // res.json({ ownerEmail, authorEmail, ownerBU });
-    res.json({ ownerName , ownerEmail });
+    if (!rcaLink || rcaLink.trim() === "") return res.status(404).json({ message: "Internal RCA Link not found" });
+
+    res.json({ ownerName , ownerEmail , rcaLink , rcaPriority });
   } catch (err: any) {
     res.status(500).json({ message: "DevRev fetch failed", error: err.response?.data || err.message });
   }

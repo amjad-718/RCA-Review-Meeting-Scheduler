@@ -17,6 +17,25 @@ router.post("/scheduleEvent", async (req, res) => {
     const event = {
       summary: `RCA Review - ${incidentId}`,
       description: "Auto-scheduled RCA review meeting.",
+      newdescription: `Hello All, 
+        Please join the RCA Review Meeting for P1: INC-4749
+        Incident: P1: INC-4749  | RCA Document
+        RCA Owner: Jawahar | Ankith | Shivang
+        RCA Reviewer: Soji Antony | Kumar Ishan
+        Time: 2:00 PM - 2:30 PM 
+
+
+        Please Note: 
+        1. We have included the RCA authors along with the RCA Owner as per the recent request(s) from the Leaders. 
+        2. We have included the Impacted POD EM as well. 
+
+
+        PS: Please nominate a PoC incase you are unavailable due to unforeseen circumstances. 
+
+
+        Regards, 
+        Meghana S Jathan
+        Problem Management Team`,
       start: { dateTime: chosenSlot.start, timeZone: "Asia/Kolkata" },
       end: { dateTime: chosenSlot.end, timeZone: "Asia/Kolkata" },
       attendees: [
