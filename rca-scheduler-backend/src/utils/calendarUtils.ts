@@ -1,31 +1,3 @@
-// export function generateCandidateSlots(rangeStart: Date, rangeEnd: Date, duration: number) {
-//   const slots: { start: Date; end: Date }[] = [];
-//   const cur = new Date(rangeStart);
-
-//   while (cur < rangeEnd) {
-//     const dayStart = new Date(cur);
-//     dayStart.setHours(10, 0, 0, 0);
-//     const dayEnd = new Date(cur);
-//     dayEnd.setHours(18, 0, 0, 0);
-//     const lunchStart = new Date(cur);
-//     lunchStart.setHours(13, 0, 0, 0);
-//     const lunchEnd = new Date(cur);
-//     lunchEnd.setHours(14, 0, 0, 0);
-
-//     let slot = new Date(dayStart);
-//     while (slot.getTime() + duration * 60000 <= dayEnd.getTime()) {
-//       const slotEnd = new Date(slot.getTime() + duration * 60000);
-//       if (!(slotEnd <= lunchStart || slot >= lunchEnd)) {
-//         // skip lunch
-//       } else {
-//         slots.push({ start: new Date(slot), end: new Date(slotEnd) });
-//       }
-//       slot = new Date(slot.getTime() + 30 * 60000);
-//     }
-//     cur.setDate(cur.getDate() + 1);
-//   }
-//   return slots;
-// }
 export function generateCandidateSlots(rangeStart: Date, rangeEnd: Date, duration: number) {
   const slots: { start: Date; end: Date }[] = [];
   const cur = new Date(rangeStart);
