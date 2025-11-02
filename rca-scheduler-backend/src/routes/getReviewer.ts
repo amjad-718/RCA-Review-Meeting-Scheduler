@@ -22,5 +22,4 @@ const reviewerEmail =
   res.json({ reviewerEmail });
 });
 
-export default router;
-//Testing GIT GUI
+export default router
