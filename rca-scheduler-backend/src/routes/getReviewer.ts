@@ -1,23 +1,24 @@
 import express from "express";
+import reviewersMap from "../utils/reviewersMap";
 
 const router = express.Router();
 
 router.post("/getReviewer", (req, res) => {
-  const { ownerBU, reviewersMap } = req.body;
+  const { ownerBU } = req.body;
 
-  if (!ownerBU || !reviewersMap)
-    return res.status(400).json({ message: "ownerBU and reviewersMap are required" });
+  if (!ownerBU)
+    return res.status(400).json({ message: "ownerBU is required" });
 
-  // Filter out the ownerBU from reviewersMap
-const eligibleReviewers = Object.entries(reviewersMap)
-  .filter(([bu]) => bu !== ownerBU)
-  .map(([_, email]) => email);
+  // Filter eligible BUs (exclude same BU)
+  const eligibleBUs = Object.keys(reviewersMap).filter(bu => bu !== ownerBU);
 
-// Pick a random one, fallback to first email if none eligible
-const reviewerEmail =
-  eligibleReviewers.length > 0
-    ? eligibleReviewers[Math.floor(Math.random() * eligibleReviewers.length)]
-    : Object.values(reviewersMap)[0];
+  // Pick a random eligible BU
+  const chosenBU : any =
+    eligibleBUs.length > 0
+      ? eligibleBUs[Math.floor(Math.random() * eligibleBUs.length)]
+      : Object.keys(reviewersMap)[0]; // fallback
+
+  const reviewerEmail = reviewersMap[chosenBU];
 
   res.json({ reviewerEmail });
 });
