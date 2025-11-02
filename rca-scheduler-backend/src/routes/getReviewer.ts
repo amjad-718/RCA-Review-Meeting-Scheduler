@@ -22,4 +22,4 @@ const reviewerEmail =
   res.json({ reviewerEmail });
 });
 
-export default router
+export default router;
