@@ -4,46 +4,66 @@ import { google } from "googleapis";
 const router = express.Router();
 
 router.post("/scheduleEvent", async (req, res) => {
-  const { googleAccessToken, ownerEmail, authorEmail, reviewerEmail, chosenSlot, incidentId } = req.body;
+  const {
+    googleAccessToken,
+    ownerEmail,
+    authorEmail,
+    reviewerEmail,
+    chosenSlot,
+    incidentId,
+    rcaDocLink,
+    rcaPriority,
+  } = req.body;
 
-  if (!googleAccessToken || !ownerEmail || !authorEmail || !reviewerEmail || !chosenSlot)
+  if (!googleAccessToken || !ownerEmail || !authorEmail || !reviewerEmail || !chosenSlot) {
     return res.status(400).json({ message: "Missing required fields" });
+  }
 
   try {
     const auth = new google.auth.OAuth2();
     auth.setCredentials({ access_token: googleAccessToken });
     const calendar = google.calendar({ version: "v3", auth });
 
+    const rcaIncidentLink = `https://yourdomain.com/rca/${incidentId}`;
+
+    const uniqueAttendees = Array.from(
+      new Set([ownerEmail, authorEmail, reviewerEmail])
+    ).map(email => ({ email }));
+
     const event = {
       summary: `RCA Review - ${incidentId}`,
-      description: "Auto-scheduled RCA review meeting.",
-      newdescription: `Hello All, 
-        Please join the RCA Review Meeting for P1: INC-4749
-        Incident: P1: INC-4749  | RCA Document
-        RCA Owner: Jawahar | Ankith | Shivang
-        RCA Reviewer: Soji Antony | Kumar Ishan
-        Time: 2:00 PM - 2:30 PM 
+      description: `
+        Hello All,
 
+        Please join the RCA Review Meeting for ${rcaPriority}: ${incidentId}
+        Incident Link: ${rcaIncidentLink}
+        RCA Document: ${rcaDocLink}
 
-        Please Note: 
-        1. We have included the RCA authors along with the RCA Owner as per the recent request(s) from the Leaders. 
-        2. We have included the Impacted POD EM as well. 
+        RCA Owner: ${ownerEmail}
+        RCA Reviewer: ${reviewerEmail}
+        Time: ${new Date(chosenSlot.start).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })} - ${new Date(chosenSlot.end).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}
 
+        Please Note:
+        1. RCA authors are included along with the RCA Owner.
+        2. Impacted POD EM is also included.
 
-        PS: Please nominate a PoC incase you are unavailable due to unforeseen circumstances. 
+        PS: Please nominate a PoC if you are unavailable.
 
-
-        Regards, 
-        Meghana S Jathan
-        Problem Management Team`,
-      start: { dateTime: chosenSlot.start, timeZone: "Asia/Kolkata" },
-      end: { dateTime: chosenSlot.end, timeZone: "Asia/Kolkata" },
-      attendees: [
-        { email: ownerEmail },
-        { email: authorEmail },
-        { email: reviewerEmail },
-      ],
+        Regards,
+        Shine S Nath
+        Problem Management Team
+        `.trim(),
+      start: { dateTime: new Date(chosenSlot.start).toISOString(), timeZone: "Asia/Kolkata" },
+      end: { dateTime: new Date(chosenSlot.end).toISOString(), timeZone: "Asia/Kolkata" },
+      attendees: uniqueAttendees,
       sendUpdates: "all",
+      reminders: {
+        useDefault: false,
+        overrides: [
+          { method: "email", minutes: 30 },
+          { method: "popup", minutes: 10 },
+        ],
+      },
     };
 
     const insertRes = await calendar.events.insert({
